@@ -57,7 +57,10 @@ namespace le
 			}
 		}
 
-		mutex_base::mutex_base(mutex_base const & _Other) {}
+		mutex_base::mutex_base(mutex_base const & _Other)
+			:mut(std::mutex()) {}
+
+		mutex_base & mutex_base::operator=(mutex_base const & _Other) {}
 
 		mutex_base::~mutex_base() {}
 

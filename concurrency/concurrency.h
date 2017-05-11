@@ -1,15 +1,19 @@
 #ifndef CONCURRENCY_H__
 #define CONCURRENCY_H__
-#include <thread>
-#include <mutex>
 
+#include "..\utility\utility.h"
+#include <mutex>
+#include <thread>
+#include <type_traits>
+
+using namespace le::utility;
 namespace le
 {
 	namespace concurrency
 	{
 		//auto_managed thread object which can do join()/detach() behavior automaticly.
 		//it can join-explicitly when necessary and then the auto end-up behavior won't be done.
-		class auto_thread
+		class auto_thread : private utility::uncopiable
 		{
 		public:
 			static enum class run_stat { RS_JOIN, RS_DETACH, RS_NULL };
@@ -28,8 +32,8 @@ namespace le
 			~auto_thread() noexcept;
 
 			//won't be copied
-			auto_thread(auto_thread const &) = delete;
-			auto_thread &operator=(auto_thread const &) = delete;
+//			auto_thread(auto_thread const &) = delete;
+//			auto_thread &operator=(auto_thread const &) = delete;
 
 			//GIVE a job to it by MOVE a new rvalue to it
 			auto_thread(auto_thread &&_Other);
@@ -50,10 +54,13 @@ namespace le
 			if (_Rs == run_stat::RS_DETACH) thr.detach();
 		}
 
+		//this is not for polymophicity.
+		//this forces user to derive from it therefor no raw class without mutex's protect will be written,
+		//and wrapper won't be wanted.
 		class mutex_base
 		{
 		private:
-			std::mutex _mutex;
+			std::mutex mut;
 		public:
 			mutex_base() = default;
 
@@ -61,14 +68,7 @@ namespace le
 
 			mutex_base &operator=(mutex_base const &_Other);
 
-			mutex_base(mutex_base &&_Other);
-
-			virtual ~mutex_base() = 0;
-		};
-
-		class hierarchical_lock
-		{
-
+			~mutex_base() = default;
 		};
 	}
 }

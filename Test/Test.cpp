@@ -86,6 +86,9 @@ int main()
 		//just let it do what it wants
 		auto_thread t1(auto_thread::run_stat::RS_DETACH, f);
 	auto_thread t2(std::move(t1));
+
+	//auto_thread t=(t1);
+	//won't compile
 	LE_TEST_END
 
 		system("pause");

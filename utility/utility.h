@@ -10,6 +10,14 @@ namespace le
 {
 	namespace utility
 	{
+		class uncopiable
+		{
+		private:
+			uncopiable(uncopiable const &);
+			uncopiable &operator=(uncopiable const &);
+		public:
+			uncopiable() = default;
+		};
 	}
 }
 
