@@ -31,10 +31,6 @@ namespace le
 
 			~auto_thread() noexcept;
 
-			//won't be copied
-//			auto_thread(auto_thread const &) = delete;
-//			auto_thread &operator=(auto_thread const &) = delete;
-
 			//GIVE a job to it by MOVE a new rvalue to it
 			auto_thread(auto_thread &&_Other);
 			auto_thread &operator=(auto_thread &&_Other);
