@@ -6,6 +6,8 @@
 #include "utility\utility.h"
 #include <cstdlib>
 #include <iostream>
+#include <string>
+#include <vector>
 #include <Windows.h>
 
 
@@ -89,6 +91,11 @@ int main()
 
 	//auto_thread t=(t1);
 	//won't compile
+	LE_TEST_END
+
+		LE_TEST_BEGIN
+		directory_tree dir("C:\\Users\\admin\\Desktop\\编程");
+	dir.print(std::cout);
 	LE_TEST_END
 
 		system("pause");

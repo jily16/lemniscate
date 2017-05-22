@@ -33,6 +33,7 @@ namespace le
 		{
 			thr = std::move(_Other.thr);
 			run_st = _Other.run_st;
+			return *this;
 		}
 
 		std::thread::id auto_thread::get_id() const noexcept
@@ -57,12 +58,16 @@ namespace le
 			}
 		}
 
+		//the mutex won't copy,
+		//maybe the derived class have members to copy but the base doesn't.
+		//it build a new mutex.
 		mutex_base::mutex_base(mutex_base const & _Other)
-			:mut(std::mutex()) {}
+		{}
 
-		mutex_base & mutex_base::operator=(mutex_base const & _Other) {}
-
-		mutex_base::~mutex_base() {}
+		mutex_base & mutex_base::operator=(mutex_base const & _Other)
+		{
+			return *this;
+		}
 
 	}
 }

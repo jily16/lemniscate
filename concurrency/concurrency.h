@@ -62,7 +62,7 @@ namespace le
 
 			mutex_base(mutex_base const &_Other);
 
-			mutex_base &operator=(mutex_base const &_Other);
+			virtual mutex_base &operator=(mutex_base const &_Other);
 
 			~mutex_base() = default;
 		};
